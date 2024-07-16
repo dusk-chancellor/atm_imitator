@@ -1,0 +1,103 @@
+swagger: "2.0"
+info:
+  contact: {}
+paths:
+  /accounts:
+    post:
+      description: Создает новый аккаунт
+      produces:
+      - text/plain
+      responses:
+        "201":
+          description: 'Account created with ID: {id}'
+          schema:
+            type: string
+      summary: Создать новый аккаунт
+      tags:
+      - accounts
+  /accounts/{id}/balance:
+    get:
+      description: Возвращает баланс аккаунта
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: 'Account ID: {id} | Balance: {balance}'
+          schema:
+            type: string
+        "400":
+          description: Invalid account ID
+          schema:
+            type: string
+      summary: Получить баланса аккаунта
+      tags:
+      - accounts
+  /accounts/{id}/deposit:
+    post:
+      consumes:
+      - application/json
+      description: Вкладывает определенную сумму в аккаунт
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Deposit amount
+        in: body
+        name: amount
+        required: true
+        schema:
+          type: number
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: 'Deposited {amount} to account ID: {id}'
+          schema:
+            type: string
+        "400":
+          description: Invalid account ID or amount
+          schema:
+            type: string
+      summary: Депозит денег в аккаунт
+      tags:
+      - accounts
+  /accounts/{id}/withdraw:
+    post:
+      consumes:
+      - application/json
+      description: Забирает определенную сумму с аккаунта
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Withdraw amount
+        in: body
+        name: withdraw
+        required: true
+        schema:
+          type: number
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: 'Withdrew {amount} from account ID: {id}'
+          schema:
+            type: string
+        "400":
+          description: Invalid account ID or amount
+          schema:
+            type: string
+      summary: Забрать деньги с аккаунта
+      tags:
+      - accounts
+swagger: "2.0"
